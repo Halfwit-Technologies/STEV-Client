@@ -4,10 +4,30 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { getUserLabels } from '@/lib/db/queries';
 import { Check, FileText, Menu, Send, Star, Trash } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-export function NavMenu() {
+export async function NavMenu() {
+  // Get the user's labels from the database
+  interface Label {
+    id: number;
+    name: string;
+    color: string;
+  }
+
+  const [labels, setLabels] = useState<Label[]>([]);
+
+  useEffect(() => {
+    const fetchLabels = async () => {
+      const data = await getUserLabels(1);
+      console.log({ data });
+      // setLabels(data);
+    };
+    fetchLabels();
+  }, []);
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -64,6 +84,8 @@ export function NavMenu() {
             <span>Trash</span>
           </Link>
         </nav>
+
+        <SheetTitle>Labels</SheetTitle>
       </SheetContent>
     </Sheet>
   );

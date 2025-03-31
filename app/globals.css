@@ -101,3 +101,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+br {
+  content: '';
+  display: block;
+  margin-top: 1em;
+  height: 1em;
+  border-bottom: 1px solid red;
+}

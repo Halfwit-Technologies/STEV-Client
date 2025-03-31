@@ -127,3 +127,14 @@ export const threadFoldersRelations = relations(threadFolders, ({ one }) => ({
     references: [folders.id],
   }),
 }));
+
+export const userLabels = pgTable('user_labels', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id),
+  name: varchar('name', { length: 50 }).notNull(),
+  color: varchar('color', { length: 50 }).notNull(),
+});
+
+export const userLabelsRelations = relations(userLabels, ({ one }) => ({
+  user: one(users, { fields: [userLabels.userId], references: [users.id] }),
+}));

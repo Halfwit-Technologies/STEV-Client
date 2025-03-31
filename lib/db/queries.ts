@@ -1,7 +1,14 @@
 import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
 import { toTitleCase } from '../utils';
 import { db } from './drizzle';
-import { emails, folders, threadFolders, threads, users } from './schema';
+import {
+  emails,
+  folders,
+  threadFolders,
+  threads,
+  userLabels,
+  users,
+} from './schema';
 
 type Folder = {
   name: string;
@@ -9,7 +16,7 @@ type Folder = {
 };
 
 export async function getFoldersWithThreadCount() {
-  'use cache';
+  // 'use cache';
 
   let foldersWithCount = await db
     .select({
@@ -34,7 +41,7 @@ export async function getFoldersWithThreadCount() {
 }
 
 export async function getThreadsForFolder(folderName: string) {
-  'use cache';
+  // 'use cache';
 
   let originalFolderName = toTitleCase(decodeURIComponent(folderName));
 
@@ -147,7 +154,7 @@ export async function searchThreads(search: string | undefined) {
 }
 
 export async function getThreadInFolder(folderName: string, threadId: string) {
-  'use cache';
+  // 'use cache';
 
   let originalFolderName = toTitleCase(decodeURIComponent(folderName));
   let result = await db
@@ -175,7 +182,7 @@ export async function getThreadInFolder(folderName: string, threadId: string) {
 }
 
 export async function getEmailsForThread(threadId: string) {
-  'use cache';
+  // 'use cache';
 
   const result = await db
     .select({
@@ -219,7 +226,7 @@ export async function getEmailsForThread(threadId: string) {
 }
 
 export async function getAllEmailAddresses() {
-  'use cache';
+  // 'use cache';
 
   return db
     .select({
@@ -231,7 +238,7 @@ export async function getAllEmailAddresses() {
 }
 
 export async function getUserProfile(userId: number) {
-  'use cache';
+  // 'use cache';
 
   const userInfo = await db
     .select({
@@ -271,4 +278,16 @@ export async function getUserProfile(userId: number) {
     ...userInfo[0],
     latestThreads,
   };
+}
+
+export async function getUserLabels(userId: number) {
+  // 'use cache';
+
+  return db
+    .select({
+      id: userLabels.id,
+    })
+    .from(userLabels)
+    .where(eq(userLabels.userId, userId))
+    .execute();
 }

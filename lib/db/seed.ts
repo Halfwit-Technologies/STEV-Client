@@ -5,14 +5,16 @@ import {
   threadFolders,
   threads,
   userFolders,
+  userLabels,
   users,
 } from './schema';
 
 async function seed() {
   console.log('Starting seed process...');
-  await seedUsers();
-  await seedFolders();
-  await seedThreadsAndEmails();
+  // await seedUsers();
+  // await seedFolders();
+  // await seedThreadsAndEmails();
+  await seedUserLabels();
   console.log('Seed process completed successfully.');
 }
 
@@ -192,6 +194,20 @@ Tim`,
     { threadId: thread1[0].id, folderId: 1 }, // Inbox
     { threadId: thread2[0].id, folderId: 1 }, // Inbox
     { threadId: thread3[0].id, folderId: 1 }, // Inbox
+  ]);
+}
+
+async function seedUserLabels() {
+  await db.insert(userLabels).values([
+    { userId: 1, name: 'Important', color: 'red' },
+    { userId: 1, name: 'Work', color: 'blue' },
+    { userId: 1, name: 'Personal', color: 'green' },
+    { userId: 2, name: 'Important', color: 'red' },
+    { userId: 2, name: 'Work', color: 'blue' },
+    { userId: 3, name: 'Important', color: 'red' },
+    { userId: 3, name: 'Personal', color: 'green' },
+    { userId: 4, name: 'Important', color: 'red' },
+    { userId: 4, name: 'Work', color: 'blue' },
   ]);
 }
 

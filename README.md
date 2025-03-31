@@ -22,7 +22,7 @@ This is an email client template built with Next.js and Postgres. It's built to 
 ```bash
 git clone https://github.com/leerob/next-email-client
 cd next-email-client
-pnpm install
+bun install
 ```
 
 ## Running Locally
@@ -30,20 +30,20 @@ pnpm install
 Use the included setup script to create your `.env` file:
 
 ```bash
-pnpm db:setup
+bun db:setup
 ```
 
 Then, run the database migrations and seed the database with emails and folders:
 
 ```bash
-pnpm db:migrate
-pnpm db:seed
+bun db:migrate
+bun db:seed
 ```
 
 Finally, run the Next.js development server:
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
