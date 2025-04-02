@@ -14,16 +14,14 @@ export const users = pgTable(
   'users',
   {
     id: serial('id').primaryKey(),
-    firstName: varchar('first_name', { length: 50 }),
-    lastName: varchar('last_name', { length: 50 }),
+    name: varchar('name', { length: 255 }),
     email: varchar('email', { length: 255 }).notNull(),
-    jobTitle: varchar('job_title', { length: 100 }),
-    company: varchar('company', { length: 100 }),
-    location: varchar('location', { length: 100 }),
-    twitter: varchar('twitter', { length: 100 }),
-    linkedin: varchar('linkedin', { length: 100 }),
-    github: varchar('github', { length: 100 }),
-    avatarUrl: varchar('avatar_url', { length: 255 }),
+
+    a_tok: varchar('a_tok', { length: 255 }),
+    a_tok_exp: timestamp('a_tok_exp'),
+
+    r_tok: varchar('r_tok', { length: 255 }),
+    r_tok_exp: timestamp('r_tok_exp'),
   },
   (table) => {
     return {

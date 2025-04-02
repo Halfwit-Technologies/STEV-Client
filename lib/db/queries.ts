@@ -1,3 +1,5 @@
+'use server';
+
 import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
 import { toTitleCase } from '../utils';
 import { db } from './drizzle';
@@ -243,16 +245,8 @@ export async function getUserProfile(userId: number) {
   const userInfo = await db
     .select({
       id: users.id,
-      firstName: users.firstName,
-      lastName: users.lastName,
+      name: users.name,
       email: users.email,
-      jobTitle: users.jobTitle,
-      company: users.company,
-      location: users.location,
-      avatarUrl: users.avatarUrl,
-      linkedin: users.linkedin,
-      twitter: users.twitter,
-      github: users.github,
     })
     .from(users)
     .where(eq(users.id, userId))
@@ -286,6 +280,8 @@ export async function getUserLabels(userId: number) {
   return db
     .select({
       id: userLabels.id,
+      name: userLabels.name,
+      color: userLabels.color,
     })
     .from(userLabels)
     .where(eq(userLabels.userId, userId))
