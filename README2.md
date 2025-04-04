@@ -69,8 +69,7 @@ Individual actions (available next to each email):
 
 ### Dependencies
 
-* Works on Windows 10 or later versions. 
-* Works on MacOS 14: Sonoma or later versions.
+* Works on all OS
 
 ### Installing
 
@@ -90,4 +89,3 @@ Developed by Halfwit Technologies (https://halfwit.tech, contact@halfwit.tech)
 ## License
 
 ## Acknowledgments
-
