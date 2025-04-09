@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import { Suspense } from 'react';
 import { Toaster } from 'sonner';
 import { RightSidebar } from './components/right-sidebar';
-import { WelcomeToast } from './components/welcome-toast';
 import './globals.css';
 
 // Load Inter font with Latin subset

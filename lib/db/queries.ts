@@ -76,8 +76,7 @@ export async function getThreadsForFolder(folderName: string) {
         'sentDate', ${emails.sentDate},
         'sender', json_build_object(
           'id', ${users.id},
-          'firstName', ${users.firstName},
-          'lastName', ${users.lastName},
+          'name', ${users.name},
           'email', ${users.email}
         )
       ) ORDER BY ${emails.sentDate} DESC)`,
@@ -109,8 +108,7 @@ export async function searchThreads(search: string | undefined) {
       emailSubject: emails.subject,
       emailBody: emails.body,
       emailSentDate: emails.sentDate,
-      senderFirstName: users.firstName,
-      senderLastName: users.lastName,
+      senderName: users.name,
       senderEmail: users.email,
     })
     .from(threads)
@@ -120,8 +118,7 @@ export async function searchThreads(search: string | undefined) {
     .leftJoin(folders, eq(threadFolders.folderId, folders.id))
     .where(
       or(
-        ilike(users.firstName, `%${search}%`),
-        ilike(users.lastName, `%${search}%`),
+        ilike(users.name, `%${search}%`),
         ilike(users.email, `%${search}%`),
         ilike(threads.subject, `%${search}%`),
         ilike(emails.body, `%${search}%`),
@@ -143,8 +140,7 @@ export async function searchThreads(search: string | undefined) {
           body: result.emailBody,
           sentDate: result.emailSentDate,
           sender: {
-            firstName: result.senderFirstName,
-            lastName: result.senderLastName,
+            name: result.senderName,
             email: result.senderEmail,
           },
         },
@@ -164,8 +160,7 @@ export async function getThreadInFolder(folderName: string, threadId: string) {
       id: threads.id,
       subject: threads.subject,
       lastActivityDate: threads.lastActivityDate,
-      senderFirstName: users.firstName,
-      senderLastName: users.lastName,
+      senderFirstName: users.name,
       senderEmail: users.email,
     })
     .from(threads)
@@ -194,8 +189,7 @@ export async function getEmailsForThread(threadId: string) {
       body: emails.body,
       sentDate: emails.sentDate,
       senderId: users.id,
-      senderFirstName: users.firstName,
-      senderLastName: users.lastName,
+      senderName: users.name,
       recipientId: emails.recipientId,
     })
     .from(threads)
@@ -217,8 +211,7 @@ export async function getEmailsForThread(threadId: string) {
       sentDate: row.sentDate,
       sender: {
         id: row.senderId,
-        firstName: row.senderFirstName,
-        lastName: row.senderLastName,
+        name: row.senderName,
       },
       recipientId: row.recipientId,
     })),
@@ -232,8 +225,7 @@ export async function getAllEmailAddresses() {
 
   return db
     .select({
-      firstName: users.firstName,
-      lastName: users.lastName,
+      firstName: users.name,
       email: users.email,
     })
     .from(users);

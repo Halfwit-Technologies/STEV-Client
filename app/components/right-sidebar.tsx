@@ -1,5 +1,4 @@
 import { getUserProfile } from '@/lib/db/queries';
-import Image from 'next/image';
 
 export async function RightSidebar({ userId }: { userId: number }) {
   let user = await getUserProfile(userId);
@@ -11,28 +10,28 @@ export async function RightSidebar({ userId }: { userId: number }) {
   return (
     <div className="hidden w-[350px] shrink-0 overflow-auto bg-neutral-50 p-6 sm:flex">
       <div className="max-w-md">
-        <h2 className="mb-2 text-2xl font-bold">{`${user.firstName} ${user.lastName}`}</h2>
+        <h2 className="mb-2 text-2xl font-bold">{`${user.name}`}</h2>
         <div className="mb-4 flex items-center">
-          <img
-            src={user.avatarUrl || '/placeholder.svg?height=40&width=40'}
-            alt={`${user.firstName} ${user.lastName}`}
+          {/* <img
+            src={user.image || '/placeholder.svg?height=40&width=40'}
+            alt={`${user.name}`}
             className="mr-4 h-10 w-10 rounded-full"
-          />
-          <div>
+          /> */}
+          {/* <div>
             <p className="text-blue-600">{user.email}</p>
             <p className="text-sm text-gray-600">{user.location}</p>
-          </div>
+          </div> */}
         </div>
-        <p className="mb-4 text-gray-700">{`${user.jobTitle} at ${user.company}`}</p>
+        {/* <p className="mb-4 text-gray-700">{`${user.jobTitle} at ${user.company}`}</p> */}
 
-        <h3 className="mb-2 font-semibold">Mail</h3>
-        <ul className="mb-4 space-y-1 text-sm text-gray-600">
+        {/* <h3 className="mb-2 font-semibold">Mail</h3> */}
+        {/* <ul className="mb-4 space-y-1 text-sm text-gray-600">
           {user.latestThreads.map((thread, index) => (
             <li key={index}>{thread.subject}</li>
           ))}
-        </ul>
+        </ul> */}
 
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           {user.linkedin && (
             <a
               href={user.linkedin}
@@ -83,9 +82,9 @@ export async function RightSidebar({ userId }: { userId: number }) {
               />
               <span className="text-sm">GitHub</span>
             </a>
-          )}
-        </div>
+          )} */}
       </div>
     </div>
+    // </div>
   );
 }
