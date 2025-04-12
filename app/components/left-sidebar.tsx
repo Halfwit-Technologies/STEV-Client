@@ -10,7 +10,7 @@ function BackButton() {
   let { name } = useParams();
 
   return (
-    <Link href={`/f/${name}`} passHref>
+    <Link href={`/mail/${name}`} passHref>
       <Button
         size="lg"
         variant="outline"

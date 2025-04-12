@@ -1,13 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "docker compose up -d ; next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "next lint",
     "db:setup": "npx tsx lib/db/setup.ts",
-    "db:seed": "npx tsx lib/db/seed.ts",
+    "db:seed": "tsx lib/db/seed-users.ts && tsx lib/db/seed.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "npx tsx lib/db/migrate.ts",
+    "db:migrate": "tsx lib/db/migrations/schema.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {

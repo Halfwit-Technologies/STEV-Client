@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/',
-        destination: '/f/inbox',
+        destination: '/mail/inbox',
         permanent: false,
       },
     ];

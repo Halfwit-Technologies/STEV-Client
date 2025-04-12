@@ -1,16 +1,6 @@
+import { User } from '@/interfaces/Schema';
 import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-
-interface GoogleProfile {
-  id: string;
-  name: string;
-  email: string;
-  image: string;
-  token: string;
-  accessToken: string;
-  refreshToken: string;
-  expires: number;
-}
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
 
 const handler = NextAuth({
   useSecureCookies: process.env.NODE_ENV === 'production',
@@ -30,17 +20,18 @@ const handler = NextAuth({
           id: profile.id,
           name: profile.name,
           email: profile.email,
-          image: profile.image,
-          token: profile.at_hash,
-          accessToken: profile.at_hash,
-          refreshToken: profile.at_hash,
-          expires: profile.expires,
-        };
+          avatar_url: profile.picture,
+          a_tok: profile.access_token,
+          a_tok_exp: new Date(Date.now() + profile.expires_in * 1000),
+          r_tok: profile.refresh_token,
+          r_tok_exp: new Date(Date.now() + profile.expires_in * 1000),
+        } as User;
       },
     }),
   ],
   callbacks: {
-    signIn: async ({ user }) => {
+    signIn: async ({ user, account, profile, email, credentials }) => {
+      console.log('signIn', { user, account, profile, email, credentials });
       return true;
     },
   },

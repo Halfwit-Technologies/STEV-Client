@@ -44,42 +44,42 @@ export async function NavMenu() {
         <SheetTitle>Menu</SheetTitle>
         <nav className="mt-4 flex flex-col space-y-4">
           <Link
-            href="/f/inbox"
+            href="/mail/inbox"
             className="flex items-center space-x-2 rounded p-2 text-gray-700 hover:bg-gray-100"
           >
             <Menu size={20} />
             <span>Inbox</span>
           </Link>
           <Link
-            href="/f/starred"
+            href="/mail/starred"
             className="flex items-center space-x-2 rounded p-2 text-gray-700 hover:bg-gray-100"
           >
             <Star size={20} />
             <span>Starred</span>
           </Link>
           <Link
-            href="/f/drafts"
+            href="/mail/drafts"
             className="flex items-center space-x-2 rounded p-2 text-gray-700 hover:bg-gray-100"
           >
             <FileText size={20} />
             <span>Drafts</span>
           </Link>
           <Link
-            href="/f/sent"
+            href="/mail/sent"
             className="flex items-center space-x-2 rounded p-2 text-gray-700 hover:bg-gray-100"
           >
             <Send size={20} />
             <span>Sent Mail</span>
           </Link>
           <Link
-            href="/f/archive"
+            href="/mail/archive"
             className="flex items-center space-x-2 rounded p-2 text-gray-700 hover:bg-gray-100"
           >
             <Check size={20} />
             <span>Archive</span>
           </Link>
           <Link
-            href="/f/trash"
+            href="/mail/trash"
             className="flex items-center space-x-2 rounded p-2 text-gray-700 hover:bg-gray-100"
           >
             <Trash size={20} />

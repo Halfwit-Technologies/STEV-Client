@@ -26,7 +26,7 @@ async function Threads({
         return (
           <Link
             key={thread.id}
-            href={`/f/${thread.folderName.toLowerCase()}/${thread.id}`}
+            href={`/mail/${thread.folderName.toLowerCase()}/${thread.id}`}
           >
             <div
               className={`flex cursor-pointer items-center border-b border-gray-100 p-4 hover:bg-gray-50`}

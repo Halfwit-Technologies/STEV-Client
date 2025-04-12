@@ -44,7 +44,7 @@ export function ThreadHeader({
       </div>
       <div className="flex items-center space-x-2">
         <Link
-          href={`/f/${folderName}/new`}
+          href={`/mail/${folderName}/new`}
           className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-100"
         >
           <PenSquare size={18} />
@@ -99,7 +99,7 @@ export function ThreadList({ folderName, threads }: ThreadListProps) {
           return (
             <Link
               key={thread.id}
-              href={`/f/${folderName.toLowerCase()}/${thread.id}`}
+              href={`/mail/${folderName.toLowerCase()}/${thread.id}`}
               className="block cursor-pointer border-b border-gray-100 hover:bg-gray-50"
             >
               <div

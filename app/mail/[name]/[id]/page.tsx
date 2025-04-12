@@ -30,7 +30,7 @@ export default async function EmailPage({
 
       {/* Main content area */}
       <div className="grow overflow-auto p-2 sm:p-6">
-        <div className="mx-auto w-full">
+        <div className="mx-auto max-w-4xl">
           {/* Thread header with subject and actions */}
           <div className="mx-6 mb-6 flex flex-col items-start justify-between sm:flex-row">
             <h1 className="mt-4 max-w-2xl grow pr-4 text-2xl font-semibold sm:mt-0">
@@ -47,11 +47,11 @@ export default async function EmailPage({
           {/* List of emails in the thread */}
           <div className="space-y-6">
             {thread.emails.map((email) => (
-              <div key={email.id} className="rounded-lg px-6 py-4">
+              <div key={email.id} className="rounded-lg bg-gray-50 px-6 py-4">
                 {/* Email metadata - sender, recipient, and date */}
                 <div className="mb-2 flex flex-col items-start justify-between sm:flex-row sm:items-center">
                   <div className="font-semibold">
-                    {email.sender.firstName} {email.sender.lastName} to{' '}
+                    {email.sender.name} to{' '}
                     {/* Determine if the email was addressed to the current user or to everyone */}
                     {email.recipientId === thread.emails[0].sender.id
                       ? 'Me'
@@ -63,7 +63,6 @@ export default async function EmailPage({
                 </div>
                 {/* Email content */}
                 <div className="whitespace-pre-wrap">{email.body}</div>
-                <br />
               </div>
             ))}
           </div>

@@ -19,7 +19,7 @@ function DiscardDraftLink() {
   let { name } = useParams();
 
   return (
-    <Link href={`/f/${name}`} className="text-gray-400 hover:text-gray-600">
+    <Link href={`/mail/${name}`} className="text-gray-400 hover:text-gray-600">
       <Trash2 size={20} />
     </Link>
   );
