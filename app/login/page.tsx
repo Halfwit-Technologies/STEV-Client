@@ -1,6 +1,7 @@
 'use client';
 
-import { signIn, signOut } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 /**
  * SignIn component - Authentication page for users to log in
@@ -8,6 +9,22 @@ import { signIn, signOut } from 'next-auth/react';
  * Uses NextAuth.js for authentication handling
  */
 export default function SignIn() {
+  const { data: session, status } = useSession();
+  const isLoading = status === 'loading';
+  const isAuthenticated = status === 'authenticated';
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-50">
+        <p className="text-gray-500">Loading...</p>
+      </div>
+    );
+  }
+
+  if (isAuthenticated) {
+    redirect('/');
+  }
+
   return (
     <div className="flex h-screen items-center justify-center bg-gray-50">
       <div className="w-full max-w-md rounded-lg border bg-white p-8 shadow-md">
@@ -17,10 +34,10 @@ export default function SignIn() {
 
         {/* Sign in button */}
         <button
-          onClick={() => signIn()}
+          onClick={() => signIn('google')}
           className="focus:ring-opacity-50 mb-4 w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
         >
-          Sign in
+          Sign in with Google
         </button>
 
         <div className="my-4 flex items-center">
