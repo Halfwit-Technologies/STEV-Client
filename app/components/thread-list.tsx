@@ -3,13 +3,14 @@
 import { ThreadActions } from '@/app/components/thread-actions';
 import { emails, users } from '@/lib/db/schema';
 import { formatEmailString } from '@/lib/utils';
-import { PenSquare, Search } from 'lucide-react';
+import { PenSquare, Search, User } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { NavMenu } from './menu';
 
 type Email = Omit<typeof emails.$inferSelect, 'threadId'> & {
-  sender: Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>;
+  sender: Pick<User, 'id' | 'name' | 'email'>;
 };
 type User = typeof users.$inferSelect;
 
@@ -33,6 +34,12 @@ export function ThreadHeader({
   folderName: string;
   count?: number | undefined;
 }) {
+  const { data: session, status } = useSession();
+  const isLoading = status === 'loading';
+  const isAuthenticated = status === 'authenticated';
+
+  const user = session?.user as User | undefined;
+
   return (
     <div className="flex h-[70px] items-center justify-between border-b border-gray-200 p-4">
       <div className="flex items-center">
@@ -55,6 +62,27 @@ export function ThreadHeader({
         >
           <Search size={18} />
         </Link>
+        <button className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-gray-100">
+          {isAuthenticated ? (
+            <span className="ml-2 h-8 w-8 overflow-hidden rounded-full bg-gray-200">
+              {user?.avatar_url ? (
+                <img src={user.avatar_url} alt="User Avatar" />
+              ) : (
+                <User
+                  size={18}
+                  className="text-center align-middle text-gray-500"
+                />
+              )}
+            </span>
+          ) : (
+            <Link href="/login">
+              <User
+                size={18}
+                className="text-center align-middle text-gray-500"
+              />
+            </Link>
+          )}
+        </button>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 // Define metadata for SEO and browser tabs
 export const metadata: Metadata = {
-  title: 'Next.js Mail',
+  title: 'STEV - Email Client',
   description: 'An email client template using the Next.js App Router.',
 };
 

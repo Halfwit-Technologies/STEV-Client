@@ -11,22 +11,35 @@ import { Check, FileText, Menu, Send, Star, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export async function NavMenu() {
-  // Get the user's labels from the database
+/**
+ * NavMenu component - Navigation menu for email folders and labels
+ * Client component that fetches user labels on mount
+ */
+export function NavMenu() {
+  // Define Label type for user labels
   interface Label {
     id: number;
     name: string;
     color: string;
   }
 
+  // State for storing user labels
   const [labels, setLabels] = useState<Label[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch user labels when component mounts
   useEffect(() => {
     const fetchLabels = async () => {
-      const data = await getUserLabels(1);
-      console.log({ data });
-      // setLabels(data);
+      try {
+        const data = await getUserLabels(1);
+        setLabels(data || []);
+      } catch (error) {
+        console.error('Error fetching labels:', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     fetchLabels();
   }, []);
 
@@ -87,7 +100,30 @@ export async function NavMenu() {
           </Link>
         </nav>
 
-        <SheetTitle>Labels</SheetTitle>
+        {/* Labels section */}
+        <div className="mt-6">
+          <SheetTitle>Labels</SheetTitle>
+          {isLoading ? (
+            <div className="mt-2 text-sm text-gray-500">Loading labels...</div>
+          ) : labels.length > 0 ? (
+            <div className="mt-2 space-y-1">
+              {labels.map((label) => (
+                <div
+                  key={label.id}
+                  className="flex items-center space-x-2 rounded p-2 text-gray-700 hover:bg-gray-100"
+                >
+                  <div
+                    className="h-3 w-3 rounded-full"
+                    style={{ backgroundColor: label.color }}
+                  />
+                  <span>{label.name}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-2 text-sm text-gray-500">No labels found</div>
+          )}
+        </div>
       </SheetContent>
     </Sheet>
   );
